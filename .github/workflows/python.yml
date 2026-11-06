@@ -140,27 +140,27 @@ jobs:
         name: wheels
         path: bindings/py/dist/*
 
-  release:
-    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
-    needs: [linux, windows, macos, sdist]
-    runs-on: ubuntu-latest
-    steps:
-    - name: Download artifacts
-      uses: actions/download-artifact@v8
-      with:
-        path: bindings/py/artifacts
-    - name: Bundle release artifacts
-      run: |
-        cd bindings/py/
-        mkdir dist
-        mv artifacts/*/* dist/
-    - name: Upload to GitHub Release
-      uses: softprops/action-gh-release@v3.0.3
-      with:
-        files: bindings/py/dist/*
-    - name: Publish to PyPI
-      uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086
-      with:
-        user: __token__
-        password: ${{ secrets.PYPI_API_TOKEN }}
-        packages-dir: bindings/py/dist/
+  # release:
+  #   if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+  #   needs: [linux, windows, macos, sdist]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Download artifacts
+  #     uses: actions/download-artifact@v8
+  #     with:
+  #       path: bindings/py/artifacts
+  #   - name: Bundle release artifacts
+  #     run: |
+  #       cd bindings/py/
+  #       mkdir dist
+  #       mv artifacts/*/* dist/
+  #   - name: Upload to GitHub Release
+  #     uses: softprops/action-gh-release@v3.0.3
+  #     with:
+  #       files: bindings/py/dist/*
+  #   - name: Publish to PyPI
+  #     uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086
+  #     with:
+  #       user: __token__
+  #       password: ${{ secrets.PYPI_API_TOKEN }}
+  #       packages-dir: bindings/py/dist/
