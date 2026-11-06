@@ -1,5 +1,4 @@
 #!/bin/sh
-export GOTOOLCHAIN=auto
 if command -v dnf; then
     dnf -y install golang gcc
 elif command -v yum; then
