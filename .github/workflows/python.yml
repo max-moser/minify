@@ -27,9 +27,6 @@ jobs:
       uses: docker/setup-qemu-action@v4
       with:
         platforms: arm64
-    - uses: actions/setup-go@v7
-      with:
-        go-version: '>=1.26'
     - name: Build wheels
       uses: pypa/cibuildwheel@v4.3.5
       with:
@@ -39,7 +36,7 @@ jobs:
         CIBW_MANYLINUX_I686_IMAGE: quay.io/pypa/manylinux_2_28_i686
         CIBW_MANYLINUX_X86_64_IMAGE: quay.io/pypa/manylinux_2_28_x86_64
         CIBW_MANYLINUX_AARCH64_IMAGE: quay.io/pypa/manylinux_2_28_aarch64
-        CIBW_BEFORE_ALL: make -C bindings/py compile
+        CIBW_BEFORE_ALL: ./ensure-go.sh; make -C bindings/py compile
     - name: Upload wheels
       uses: actions/upload-artifact@v7
       with:
